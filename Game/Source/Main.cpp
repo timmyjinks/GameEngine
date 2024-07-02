@@ -1,53 +1,77 @@
-#include <SDL.h>
+#include "Renderer.h"
+#include "Vector2.h"
+#include "Input.h"
+
 #include <iostream>
+#include <cstdlib>
+#include <vector>
 
 int main(int argc, char* argv[])
 {
-	// initialize SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		std::cerr << "Error initializing SDL: " << SDL_GetError() << std::endl;
-		return 1;
-	}
-
-	// create window
-	// returns pointer to window if successful or nullptr if failed
-	SDL_Window* window = SDL_CreateWindow("Game Engine",
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		800, 600,
-		SDL_WINDOW_SHOWN);
-	if (window == nullptr)
-	{
-		std::cerr << "Error creating SDL window: " << SDL_GetError() << std::endl;
-		SDL_Quit();
-		return 1;
-	}
-
 	// create renderer
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	Renderer renderer;
+	renderer.Initialize();
+	renderer.CreateWindow("Game Engine", 800, 600);
 
-	int numberOfLines = 1024;
-	while (true)
+	Input input;
+	input.Initialize();
+
+	Vector2 v1{ 400, 200 };
+	Vector2 v2{ 700, 500 };
+
+	std::vector<Vector2> points;
+
+	bool quit = false;
+	while (!quit)
 	{
-		//clear screen
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-		SDL_RenderClear(renderer);
+		// input
+		// update
+		// draw
+
+		// INPUT
+		input.Update();
+
+		if (input.GetKeyDown(SDL_SCANCODE_ESCAPE)) {
+			quit = true;
+		}
+
+		// UPDATE
+		Vector2 mousePosition = input.GetMousePosition();
+		// std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
+
+		if (input.GetMouseButtonDown(0) && !input.GetPreviousMouseButtonDown(0)) {
+			std::cout << "mouse down\n";
+			points.push_back(mousePosition);
+		}
+
+		if (input.GetMouseButtonDown(0) && input.GetPreviousMouseButtonDown(0)) {
+			points.push_back(mousePosition);
+		}
+
+		// DRAW
+		// clear screen
+		renderer.SetColor(0, 0, 0, 0);
+		renderer.BeginFrame();
 
 		// draw line
+		/*for (int i = 0; i < 50; i++) {
+			renderer.SetColor(rand() % 256, rand() % 256, rand() % 256, 0);
+			renderer.DrawLine(rand() % 999, rand() % 999, rand() % 999, rand() % 999);
+		}*/
 
-		for (int i = 0; i < 500; i++) {
-			SDL_SetRenderDrawColor(renderer, rand() % 256, rand() % 256, rand() % 256, 0);
-			SDL_RenderDrawLine(renderer, rand() % 999, rand() % 999, rand() % 999, rand() % 999);
+		for (int i = 0; points.size() > 1 && i < points.size() - 1; i++) {
+			renderer.SetColor(255, 255, 255, 0);
+			renderer.DrawLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
 		}
 
 		// draw triangle
-	/*	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
-		SDL_RenderDrawLine(renderer, 400, 200, 200, 400);
-		SDL_RenderDrawLine(renderer, 400, 200, 600, 400);
-		SDL_RenderDrawLine(renderer, 200, 400, 600, 400);*/
+		/*renderer.SetColor(255, 255, 255, 0);
+		renderer.DrawLine(400, 200, 200, 400);
+		renderer.DrawLine(400, 200, 600, 400);
+		renderer.DrawLine(200, 400, 600, 400);*/
 
 		// show screen
-		SDL_RenderPresent(renderer);
+		renderer.EndFrame();
 	}
 
 	return 0;
