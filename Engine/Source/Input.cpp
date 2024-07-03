@@ -35,7 +35,6 @@ void Input::Update()
 	m_mousePosition.x = (float)x;
 	m_mousePosition.y = (float)y;
 
-
 	m_prevMouseButtonState = m_mouseButtonState;
 
 	m_mouseButtonState[0] = buttonState & SDL_BUTTON_LMASK;
