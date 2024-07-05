@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 		Vector2 mousePosition = input.GetMousePosition();
 
 		if (input.GetMouseButtonDown(0) && input.GetPreviousMouseButtonDown(0)) {
-			particles.push_back(Particle{ mousePosition, { randomf(-100, 100), randomf(-100, 100)} });
+			particles.push_back(Particle{ mousePosition, { randomf(-100, 100), randomf(-100, 100)}, randomf(1,5), (uint8_t)random(256), (uint8_t)random(256), (uint8_t)random(256) });
 		}
 
 		// DRAW
@@ -59,11 +59,8 @@ int main(int argc, char* argv[])
 		renderer.BeginFrame();
 
 		// particles
-		renderer.SetColor(255, 255, 255, 0);
 		for (Particle particle : particles) {
-			if (particle.lifespan > 0) {
-				particle.Draw(renderer);
-			}
+			particle.Draw(renderer);
 		}
 
 		// show screen
