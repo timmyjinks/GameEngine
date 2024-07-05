@@ -5,7 +5,7 @@
 struct Particle {
 	Vector2 position;
 	Vector2 velocity;
-	float lifespan;
+	float lifespan = 5;
 
 	Particle() = default;
 	Particle(Vector2 position, Vector2 velocity) :

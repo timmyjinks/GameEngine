@@ -3,6 +3,7 @@
 void Particle::Update(float deltaTime)
 {
 	position = position + (velocity * deltaTime);
+	lifespan = lifespan - deltaTime;
 }
 
 void Particle::Draw(Renderer& renderer)
