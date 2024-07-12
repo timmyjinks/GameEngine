@@ -1,8 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Build",
+    "\\Engine",
+    "\\Engine\\Source",
     "\\Game",
-    "\\Game\\Source"
+    "\\Game\\Source",
+    "\\ThirdParty",
+    "\\ThirdParty\\fmod",
+    "\\ThirdParty\\fmod\\core",
+    "\\ThirdParty\\fmod\\core\\inc"
   ],
   "SelectedNode": "\\CSC196-GameEngine.sln",
   "PreviewInSolutionExplorer": false

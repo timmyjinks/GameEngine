@@ -1,4 +1,4 @@
-﻿  Particle.cpp
+﻿  Model.cpp
 user32.lib(USER32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in kernel32.lib(KERNEL32.dll); second definition ignored
 gdi32.lib(GDI32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in kernel32.lib(KERNEL32.dll); second definition ignored
 winspool.lib(WINSPOOL.DRV) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in kernel32.lib(KERNEL32.dll); second definition ignored
@@ -9,4 +9,5 @@ ole32.lib(ole32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined
 oleaut32.lib(OLEAUT32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in kernel32.lib(KERNEL32.dll); second definition ignored
 odbc32.lib(ODBC32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in kernel32.lib(KERNEL32.dll); second definition ignored
 sdl2.lib(SDL2.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in kernel32.lib(KERNEL32.dll); second definition ignored
+fmod_vc.lib(fmod.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in kernel32.lib(KERNEL32.dll); second definition ignored
   Engine.vcxproj -> C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\x64\Debug\Engine.lib
