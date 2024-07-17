@@ -1,2 +1,6 @@
-﻿  Main.cpp
+﻿  Bullet.cpp
+  Enemy.cpp
+  Main.cpp
+  Player.cpp
+  Generating Code...
   Game.vcxproj -> C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\x64\Debug\Game.exe

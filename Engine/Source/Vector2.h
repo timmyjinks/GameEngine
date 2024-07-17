@@ -23,10 +23,10 @@ struct Vector2 {
 	Vector2 operator * (float s) const { return Vector2{ x * s , y * s }; }
 	Vector2 operator / (float s) const { return Vector2{ x / s , y / s }; }
 
-	Vector2& operator += (Vector2& v) { x += v.x; y += v.y; return *this; }
-	Vector2& operator -= (Vector2& v) { x -= v.x; y -= v.y; return *this; }
-	Vector2& operator *= (Vector2& v) { x *= v.x; y *= v.y; return *this; }
-	Vector2& operator /= (Vector2& v) { x /= v.x; y /= v.y; return *this; }
+	Vector2& operator += (const Vector2& v) { x += v.x; y += v.y; return *this; }
+	Vector2& operator -= (const Vector2& v) { x -= v.x; y -= v.y; return *this; }
+	Vector2& operator *= (const Vector2& v) { x *= v.x; y *= v.y; return *this; }
+	Vector2& operator /= (const Vector2& v) { x /= v.x; y /= v.y; return *this; }
 
 	Vector2& operator += (float s) { x += s; y += s; return *this; }
 	Vector2& operator -= (float s) { x -= s; y -= s; return *this; }
@@ -39,6 +39,7 @@ struct Vector2 {
 	float Angle() { return Math::ATan2(y, x); }
 
 	Vector2 Rotate(float radians) const;
+	Vector2 Normalized() { return *this / Length(); }
 };
 
 inline Vector2 Vector2::Rotate(float radians) const {
