@@ -35,7 +35,6 @@ private:
 	Renderer* m_renderer{ nullptr };
 	Input* m_input{ nullptr };
 	Audio* m_audio{ nullptr };
-
 };
 
 extern Engine g_engine;

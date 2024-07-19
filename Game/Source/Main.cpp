@@ -41,26 +41,24 @@ int main(int argc, char* argv[])
 	Model* model = new Model{ points, Color{ 1,1,0 } };
 	Scene* scene = new Scene();
 
-	for (int i = 0; i < 1; i++) {
-		Transform transform{ { 400, 300 }, 0, 2 };
-		Player* player = new Player(1000, transform, model);
-		player->SetDamping(2.0f);
-		scene->AddActor(player);
+	Transform transform{ { 400, 300 }, 0, 10 };
+	Player* player = new Player(1000, transform, model);
+	player->SetDamping(2.0f);
+	player->SetTag("Player");
+	player->SetLifespan(-5);
+	scene->AddActor(player);
 
-		auto* enemyModel = new Model{ points, Color{ 1,0,0 } };
-		auto* enemy = new Enemy(800, Transform{ { 300, 300 }, 0, 2 }, enemyModel);
-		scene->AddActor(enemy);
-	}
+	float spawnTime = 0;
 
+	float i = 5;
 	bool quit = false;
 	while (!quit)
 	{
-		time.Tick();
-
 		// input
 		// update
-		g_engine.GetInput().Update();
 		// draw
+
+		time.Tick();
 
 		// INPUT
 
@@ -68,14 +66,17 @@ int main(int argc, char* argv[])
 			quit = true;
 		}
 
-		// UPDATE
-		scene->Update(time.GetDeltaTime());
+		spawnTime -= time.GetDeltaTime();
+		if (spawnTime <= 0) {
+			auto* enemyModel = new Model{ points, Color{ 1,0,0 } };
+			auto* enemy = new Enemy(20, Transform{ { 100, 100 }, 0, i }, enemyModel);
+			enemy->SetDamping(1.0f);
+			enemy->SetLifespan(-5);
+			enemy->SetTag("Enemy");
+			scene->AddActor(enemy);
 
-
-		for (Particle& particle : particles) {
-			particle.Update(time.GetDeltaTime());
-			if (particle.position.x > 800) particle.position.x = 0;
-			if (particle.position.x < 0) particle.position.x = 800;
+			spawnTime = 8888888;
+			i++;
 		}
 
 		Vector2 mousePosition = g_engine.GetInput().GetMousePosition();
@@ -91,6 +92,17 @@ int main(int argc, char* argv[])
 		if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_A) && !g_engine.GetInput().GetPreviousKeyDown(SDL_SCANCODE_A)) g_engine.GetAudio().PlaySound("clap.wav");
 		if (g_engine.GetInput().GetKeyDown(SDL_SCANCODE_S) && !g_engine.GetInput().GetPreviousKeyDown(SDL_SCANCODE_S)) g_engine.GetAudio().PlaySound("cowbell");
 
+		// UPDATE
+		scene->Update(time.GetDeltaTime());
+		g_engine.GetInput().Update();
+
+
+		for (Particle& particle : particles) {
+			particle.Update(time.GetDeltaTime());
+			if (particle.position.x > 800) particle.position.x = 0;
+			if (particle.position.x < 0) particle.position.x = 800;
+		}
+
 		// DRAW
 		// clear screen
 		g_engine.GetRenderer().SetColor(0, 0, 0, 0);
@@ -100,8 +112,8 @@ int main(int argc, char* argv[])
 		offset += (90 * time.GetDeltaTime());
 		g_engine.GetRenderer().SetColor(0, 255, 255, 0);
 		for (float angle = 0; angle < 360; angle += 360 / 30) {
-			float x = Math::Cos(Math::DegToRad(angle + offset)) * Math::Sin(offset * 0.01f) * radius;
-			float y = Math::Sin(Math::DegToRad(angle + offset)) * Math::Sin(offset * 0.01f) * radius;
+			float x = Math::Cos(Math::DegToRad(angle + offset)) * Math::Cos(offset * 0.01f) * radius;
+			float y = Math::Sin(Math::DegToRad(angle + offset)) * Math::Cos(offset * 0.01f) * radius;
 
 			g_engine.GetRenderer().DrawRect(400 + x, 300 + y, 4.0f, 4.0f);
 
@@ -110,7 +122,7 @@ int main(int argc, char* argv[])
 						particles.push_back(Particle{ mousePosition, randomOnUnitCircle() * 100 ,randomf(1,5), (uint8_t)random(256), (uint8_t)random(256), (uint8_t)random(256) });
 					}
 					break;
-			}*/
+				}*/
 		}
 
 		// particles

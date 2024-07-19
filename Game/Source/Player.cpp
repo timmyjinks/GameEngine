@@ -34,9 +34,17 @@ void Player::Update(float deltaTime)
 		Transform transform{ m_transform.position, m_transform.rotation, 1.0f };
 
 		Bullet* bullet = new Bullet(400.0f, transform, model);
-		bullet->SetLifespan(1);
+		bullet->SetLifespan(2);
+		bullet->SetTag("Player");
 		m_scene->AddActor(bullet);
 	}
 
 	Actor::Update(deltaTime);
+}
+
+void Player::OnCollision(Actor* actor)
+{
+	/*if (actor->GetTag() == "Enemy") {
+		m_destroyed = true;
+	}*/
 }

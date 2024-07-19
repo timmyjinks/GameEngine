@@ -33,13 +33,13 @@ struct Vector2 {
 	Vector2& operator *= (float s) { x *= s; y *= s; return *this; }
 	Vector2& operator /= (float s) { x /= s; y /= s; return *this; }
 
-	float LengthSqr() { return (y * x) + (y * y); }
-	float Length() { return Math::Sqrt((y * x) + (y * y)); }
+	float LengthSqr() const { return (x * x) + (y * y); }
+	float Length() const { return Math::Sqrt((x * x) + (y * y)); }
 
 	float Angle() { return Math::ATan2(y, x); }
 
 	Vector2 Rotate(float radians) const;
-	Vector2 Normalized() { return *this / Length(); }
+	Vector2 Normalized() const { return *this / Length(); }
 };
 
 inline Vector2 Vector2::Rotate(float radians) const {

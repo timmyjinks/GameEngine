@@ -12,6 +12,4 @@ struct Transform {
 		rotation{ rotation },
 		scale{ scale }
 	{}
-
-
 };

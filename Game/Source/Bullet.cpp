@@ -10,3 +10,8 @@ void Bullet::Update(float deltaTime)
 
 	Actor::Update(deltaTime);
 }
+
+void Bullet::OnCollision(Actor* actor)
+{
+
+}
