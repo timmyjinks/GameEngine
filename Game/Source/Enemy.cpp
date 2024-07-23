@@ -1,9 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Scene.h"
-#include <iostream>
 
-int i = 0;
 void Enemy::Update(float deltaTime)
 {
 	Player* player = m_scene->GetActor<Player>();
@@ -19,8 +17,6 @@ void Enemy::Update(float deltaTime)
 void Enemy::OnCollision(Actor* actor)
 {
 	if (actor->GetTag() == "Player") {
-		//	m_destroyed = true;
-		std::cout << "collision: " << i << std::endl;
-		i++;
+		m_destroyed = true;
 	}
 }
