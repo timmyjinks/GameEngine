@@ -1,5 +1,15 @@
 #include "Particle.h"
 
+void Particle::Initialize()
+{
+	isActive = true;
+	position = data.position;
+	velocity = data.velocity;
+	lifespan = data.lifespan;
+	position = data.position;
+	position = data.position;
+}
+
 void Particle::Update(float deltaTime)
 {
 	position = position + (velocity * deltaTime);
@@ -11,7 +21,7 @@ void Particle::Update(float deltaTime)
 void Particle::Draw(Renderer& renderer)
 {
 	if (lifespan >= 0) {
-		renderer.SetColor(color[0], color[1], color[2], 0);
+		renderer.SetColor(r, g, b, a);
 		renderer.DrawRect(position.x, position.y, 4.0f, 4.0f);
 	}
 }

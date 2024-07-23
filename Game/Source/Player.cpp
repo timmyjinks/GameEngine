@@ -3,6 +3,8 @@
 #include "Bullet.h"
 #include "Scene.h"
 
+#include <memory>
+
 void Player::Update(float deltaTime)
 {
 	//movement
@@ -33,10 +35,10 @@ void Player::Update(float deltaTime)
 		Model* model = new Model{ points, Color{ 1, 1, 0 } };
 		Transform transform{ m_transform.position, m_transform.rotation, 1.0f };
 
-		Bullet* bullet = new Bullet(400.0f, transform, model);
+		auto bullet = std::make_unique<Bullet>(400.0f, transform, model);
 		bullet->SetLifespan(2);
 		bullet->SetTag("Player");
-		m_scene->AddActor(bullet);
+		m_scene->AddActor(std::move(bullet));
 	}
 
 	Actor::Update(deltaTime);

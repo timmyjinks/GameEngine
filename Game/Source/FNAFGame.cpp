@@ -31,11 +31,11 @@ void FNAFGame::Update(float deltaTime)
 	{
 		Model* model = new Model{ GameData::shipPoints, Color{ 1,1,0 } };
 		Transform transform{ { 400, 300 }, 0, 10 };
-		Player* player = new Player(1000, transform, model);
+		auto player = std::make_unique<Player>(1000, transform, model);
 		player->SetDamping(2.0f);
 		player->SetTag("Player");
 		player->SetLifespan(-5);
-		m_scene->AddActor(player);
+		m_scene->AddActor(std::move(player));
 	}
 
 	m_spawnTime = 2;
@@ -49,11 +49,11 @@ void FNAFGame::Update(float deltaTime)
 			m_spawnTimer = m_spawnTime;
 
 			Model* enemyModel = new Model{ GameData::shipPoints, Color{ 1,0,0 } };
-			Enemy* enemy = new Enemy(20, Transform{ { 100, 100 }, 0, randomf(0, 5) }, enemyModel);
+			auto enemy = std::make_unique<Enemy>(20, Transform{ { 100, 100 }, 0, randomf(0, 5) }, enemyModel);
 			enemy->SetDamping(1.0f);
 			enemy->SetLifespan(-5);
 			enemy->SetTag("Enemy");
-			m_scene->AddActor(enemy);
+			m_scene->AddActor(std::move(enemy));
 		}
 
 		break;

@@ -1,5 +1,4 @@
 #include "Model.h"
-#include <iostream>
 
 void Model::Draw(Renderer& renderer, const Vector2& position, float angle, float scale)
 {
@@ -33,7 +32,6 @@ float Model::GetRadius() {
 	float radius = 0;
 
 	for (const Vector2& point : m_points) {
-		//std::cout << point.x << " : " << point.y << std::endl;
 		float r = point.Length();
 		if (r > radius) {
 			radius = r;
