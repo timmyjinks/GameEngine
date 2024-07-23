@@ -1,9 +1,10 @@
 #pragma once
-#include "Vector2.h"
 #include "Color.h"
-#include "Renderer.h"
-#include "Transform.h"
 #include <vector>
+
+struct Vector2;
+class Renderer;
+struct Transform;
 
 class Model {
 public:

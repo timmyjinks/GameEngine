@@ -1,19 +1,18 @@
 #pragma once
 #include "Renderer.h"
-#include "Vector2.h"
-
-#include "ETime.h"
-
 #include "Input.h"
 #include "Audio.h"
 
+#include "ETime.h"
+
+#include "Vector2.h"
 #include "Random.h"
 #include "MathUtils.h"
 
-#include "Particle.h"
-#include "ParticleSystem.h"
-#include "Model.h"
 #include "Transform.h"
+#include "ParticleSystem.h"
+#include "Particle.h"
+#include "Model.h"
 
 #include <fmod.hpp>
 #include <SDL.h>
@@ -38,12 +37,10 @@ public:
 
 private:
 	bool m_quit{ false };
-	Time* m_time{ nullptr };
-
-	Renderer* m_renderer{ nullptr };
-	Input* m_input{ nullptr };
-	Audio* m_audio{ nullptr };
-
+	std::unique_ptr<Time> m_time;
+	std::unique_ptr<Renderer> m_renderer;
+	std::unique_ptr<Input> m_input;
+	std::unique_ptr<Audio> m_audio;
 	std::unique_ptr<ParticleSystem> m_particleSystem;
 };
 

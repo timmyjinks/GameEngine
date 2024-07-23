@@ -6,7 +6,7 @@
 #include "FNAFGame.h"
 
 #include <iostream>
-#include <cstdlib>
+#include <stdlib.h>
 #include <vector>
 
 int main(int argc, char* argv[])
@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
 
 		game->Draw(g_engine.GetRenderer());
 		g_engine.GetParticleSystem().Draw(g_engine.GetRenderer());
+
 		g_engine.GetRenderer().EndFrame();
 	}
 

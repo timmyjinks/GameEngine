@@ -1,5 +1,4 @@
 #include "Audio.h"
-#include <string>
 #include <iostream>
 
 bool Audio::Initialize()
@@ -31,6 +30,7 @@ bool Audio::AddSound(const std::string& name)
 		return false;
 	}
 	m_sounds[name] = m_sound;
+	return true;
 }
 
 bool Audio::PlaySound(const std::string& name)

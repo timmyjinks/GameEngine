@@ -5,8 +5,8 @@ void Bullet::Update(float deltaTime)
 {
 	Particle::Data data{
 		m_transform.position,
-		Vector2{ 1,0}.Rotate(randomf(Math::TwoPi)) * 50,
-		5,
+		Vector2{ 1,0 }.Rotate(randomf(Math::TwoPi)) * 50,
+		5
 	};
 
 	g_engine.GetParticleSystem().AddParticle(data);

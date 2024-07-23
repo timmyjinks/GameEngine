@@ -9,6 +9,13 @@ bool Renderer::Initialize()
 		std::cerr << "Error initializing SDL: " << SDL_GetError() << std::endl;
 		return false;
 	}
+	// initialize TTF SDL
+	if (TTF_Init() < 0)
+	{
+		std::cerr << "Error initializing SDL TTF: " << SDL_GetError() << std::endl;
+		return false;
+	}
+
 	return true;
 }
 

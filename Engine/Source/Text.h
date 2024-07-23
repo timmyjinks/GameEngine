@@ -1,10 +1,10 @@
 #pragma once
-#include <SDL_ttf.h>
+#include "Font.h"
 #include <string>
 
 class Renderer;
 class Font;
-class Color;
+struct Color;
 
 class Text
 {

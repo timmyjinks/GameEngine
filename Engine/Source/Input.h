@@ -2,6 +2,7 @@
 #include "Vector2.h"
 #include <vector>
 #include <array>
+#include <SDL.h>
 
 class Input {
 public:

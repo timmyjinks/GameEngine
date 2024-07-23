@@ -1,0 +1,25 @@
+﻿  Actor.cpp
+  Audio.cpp
+  Engine.cpp
+  ETime.cpp
+  Font.cpp
+  Input.cpp
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Actor.cpp(25,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Audio.cpp(48,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Engine.cpp(47,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\ETime.cpp(13,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Font.cpp(23,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Input.cpp(41,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  Model.cpp
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Model.cpp(43,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  Particle.cpp
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Particle.cpp(18,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  Renderer.cpp
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Renderer.cpp(86,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  Scene.cpp
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Scene.cpp(46,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  ShipAnimation.cpp
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\ShipAnimation.cpp(7,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  Text.cpp
+C:\workspaces\neumont\First-Year\CSC196\Week1\CSC196-GameEngine\Engine\Source\Text.cpp(52,1): error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  Generating Code...

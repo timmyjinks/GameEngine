@@ -1,18 +1,19 @@
 #pragma once
-#include "Vector2.h"
 #include "Renderer.h"
-
-struct Data {
-	Vector2 position;
-	Vector2 velocity;
-	float lifespan;
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-	uint8_t a;
-};
+#include "Vector2.h"
 
 struct Particle {
+	struct Data {
+		Vector2 position{ 0,0 };
+		Vector2 velocity{ 0,0 };
+		float lifespan = 0;
+		uint8_t r{ 255 };
+		uint8_t g{ 255 };
+		uint8_t b{ 255 };
+		uint8_t a{ 255 };
+	};
+
+	Data data;
 	Vector2 position{ 0,0 };
 	Vector2 velocity{ 0,0 };
 	float lifespan = 0;
@@ -32,7 +33,7 @@ struct Particle {
 		velocity{ velocity },
 		lifespan{ lifespan }
 	{}
-	Particle(Vector2 position, Vector2 velocity, float lifespan, uint8_t r, uint8_t g, uint8_t b) :
+	Particle(Vector2 position, Vector2 velocity, float lifespan, uint8_t r, uint8_t g, uint8_t b, uint8_t a) :
 		position{ position },
 		velocity{ velocity },
 		lifespan{ lifespan },

@@ -3,9 +3,11 @@
 #include <vector>
 
 class Renderer;
+class Engine;
 
 class ParticleSystem {
 public:
+	ParticleSystem() = default;
 	ParticleSystem(int maxSize) {
 		m_particles.resize(maxSize);
 	}
@@ -14,6 +16,8 @@ public:
 	void Draw(Renderer& renderer);
 
 	void AddParticle(const Particle::Data& data);
+
+	friend class Engine;
 
 private:
 	Particle* GetFreeParticle();

@@ -12,10 +12,9 @@ void Particle::Initialize()
 
 void Particle::Update(float deltaTime)
 {
+	if (lifespan != 0.0f) lifespan -= deltaTime;
 	position = position + (velocity * deltaTime);
-	if (lifespan != 0) {
-		lifespan -= deltaTime;
-	}
+	isActive = (lifespan <= 0);
 }
 
 void Particle::Draw(Renderer& renderer)

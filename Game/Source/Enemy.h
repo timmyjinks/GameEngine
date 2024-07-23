@@ -12,7 +12,7 @@ public:
 	{}
 
 	void Update(float deltaTime);
-	virtual void OnCollision(Actor* actor);
+	void OnCollision(Actor* actor);
 
 private:
 	float m_speed = 0;

@@ -6,34 +6,38 @@ class Renderer;
 class Actor;
 class Game;
 
-class Scene {
+class Scene
+{
 public:
 	Scene() = default;
+	Scene(Game* game) : m_game{ game } {}
 
-	void Update(float deltaTime);
+	void Update(float delta);
 	void Draw(Renderer& renderer);
 
 	void AddActor(std::unique_ptr<Actor> actor);
+	void RemoveAll();
 
 	template<typename T>
 	T* GetActor();
 
-	Game* GetGame() { return m_game; }
-
-	friend class Game;
+	Game* GetGame() const { return m_game; }
 
 protected:
+
 	std::list<std::unique_ptr<Actor>> m_actors;
 
 	Game* m_game{ nullptr };
 };
 
 template<typename T>
-T* Scene::GetActor() {
-	for (auto& actor : m_actors) {
+T* Scene::GetActor()
+{
+	/*for (auto& actor : m_actors)
+	{
 		T* result = dynamic_cast<T*>(actor);
 		if (result) return result;
-	}
+	}*/
 
 	return nullptr;
 }

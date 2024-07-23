@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL.h>
+#include <string>
+#include <SDL_ttf.h>
 
 class Renderer {
 public:

@@ -3,12 +3,27 @@
 #include "Engine.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Pickup.h"
 #include "GameData.h"
+#include "Font.h"
+#include "Text.h"
+
+//#include <memory>
 
 bool FNAFGame::Initialize()
 {
-	m_scene = new Scene();
-	if (!m_scene) return false;
+	m_scene = new Scene(this);
+
+	m_font = new Font();
+	m_font->Load("arcadeclassic.ttf", 20);
+
+	m_fontLarge = new Font();
+	m_fontLarge->Load("arcadeclassic.ttf", 72);
+
+	m_textScore = new Text(m_font);
+	m_textLives = new Text(m_font);
+	m_textTitle = new Text(m_fontLarge);
+
 	return true;
 }
 
@@ -19,68 +34,104 @@ void FNAFGame::Shutdown()
 
 void FNAFGame::Update(float deltaTime)
 {
-	switch (m_state) {
+	switch (m_state)
+	{
 	case eState::Title:
-		if (m_engine->GetInput().GetKeyDown(SDL_SCANCODE_SPACE)) m_state = eState::StartGame;
+		if (m_engine->GetInput().GetKeyDown(SDL_SCANCODE_SPACE))
+		{
+			m_state = eState::StartGame;
+		}
 		break;
 	case eState::StartGame:
 		m_score = 0;
+		m_lives = 3;
 		m_state = eState::StartLevel;
 		break;
 	case eState::StartLevel:
-	{
-		Model* model = new Model{ GameData::shipPoints, Color{ 1,1,0 } };
-		Transform transform{ { 400, 300 }, 0, 10 };
-		auto player = std::make_unique<Player>(1000, transform, model);
-		player->SetDamping(2.0f);
-		player->SetTag("Player");
-		player->SetLifespan(-5);
-		m_scene->AddActor(std::move(player));
-	}
+		m_scene->RemoveAll();
+		{
+			Transform transform{ {randomf(0,800), randomf(0, 600)}, 0, 5 };
+			Model* model = new Model{ GameData::shipPoints, Color{ 1, 1, 1 } };
+			auto player = std::make_unique<Player>(600, transform, model);
+			player->SetDamping(1.5f);
+			player->SetTag("Player");
+			m_scene->AddActor(std::move(player));
+		}
 
-	m_spawnTime = 2;
-	m_spawnTimer = m_spawnTime;
-
-	m_state = eState::Game;
-	break;
+		m_spawnTime = 3;
+		m_spawnTimer = m_spawnTime;
+		m_state = eState::Game;
+		m_lives = 3;
+		break;
 	case eState::Game:
 		m_spawnTimer -= deltaTime;
 		if (m_spawnTimer <= 0) {
 			m_spawnTimer = m_spawnTime;
-
-			Model* enemyModel = new Model{ GameData::shipPoints, Color{ 1,0,0 } };
-			auto enemy = std::make_unique<Enemy>(20, Transform{ { 100, 100 }, 0, randomf(0, 5) }, enemyModel);
-			enemy->SetDamping(1.0f);
-			enemy->SetLifespan(-5);
+			auto enemyModel = new Model{ GameData::shipPoints, Color{ 1, 0, 1 } };
+			auto enemy = std::make_unique<Enemy>(600, Transform{ {random(g_engine.GetRenderer().GetWidth()), random(g_engine.GetRenderer().GetHeight())}, 0, 2 }, enemyModel);
+			enemy->SetDamping(1.5f);
 			enemy->SetTag("Enemy");
 			m_scene->AddActor(std::move(enemy));
-		}
 
+			auto pickupModel = new Model{ GameData::shipPoints, Color{ 1, 1, 1 } };
+			auto pickup = std::make_unique<Pickup>(Transform{ { random(g_engine.GetRenderer().GetWidth()), random(g_engine.GetRenderer().GetHeight())}, 0, 2 }, pickupModel);
+			pickup->SetTag("Pickup");
+			m_scene->AddActor(std::move(pickup));
+
+		}
 		break;
 	case eState::PlayerDead:
+		m_stateTimer -= deltaTime;
+		if (m_stateTimer <= 0)
+		{
+			m_state = eState::StartLevel;
+		}
 		break;
 	case eState::GameOver:
+		m_stateTimer -= deltaTime;
+		if (m_stateTimer <= 0)
+		{
+			m_state = eState::Title;
+		}
 		break;
 	default:
 		break;
 	}
+
 	m_scene->Update(deltaTime);
 }
 
 void FNAFGame::Draw(Renderer& renderer)
 {
-	switch (m_state) {
+	switch (m_state)
+	{
 	case eState::Title:
-		// draw text "Game Title"
+
+		m_textTitle->Create(renderer, "1", Color{ 1,0,1,1 });
+		m_textTitle->Draw(renderer, 250, 250);
 		break;
 	case eState::GameOver:
-		// draw text "Game Over"
+		m_textTitle->Create(renderer, "sad", Color{ 1,1,0,1 });
+		m_textTitle->Draw(renderer, 250, 250);
 		break;
 	default:
 		break;
 	}
 
-	// draw scores
-	// draw lives
+	std::string text = "Score " + std::to_string(m_score);
+	m_textScore->Create(renderer, text, { 1, 1, 1, 1 });
+	m_textScore->Draw(renderer, 20, 20);
+
+	text = "Lives " + std::to_string(m_lives);
+	m_textLives->Create(renderer, text, { 1, 1, 1, 1 });
+	m_textLives->Draw(renderer, renderer.GetWidth() - 100, 20);
+
 	m_scene->Draw(renderer);
+}
+
+void FNAFGame::OnPlayerDeath()
+{
+	m_lives--;
+	m_state = (m_lives == 0) ? eState::GameOver : eState::PlayerDead;
+	m_stateTimer = 3;
 }

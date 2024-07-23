@@ -1,17 +1,13 @@
 #pragma once
-#pragma once
 #include "MathUtils.h"
 #include <cmath>
 #include <stdint.h>
 
 struct Color {
-	float r;
-	float g;
-	float b;
-	float a;
+	float r, g, b, a;
 
 	Color() = default;
-	Color(float r, float g, float b, float a = 0) { this->r = r; this->g = g; this->b = b; this->a; }
+	Color(float r, float g, float b, float a = 0) { this->r = r; this->g = g; this->b = b; this->a = a; }
 
 	float operator[] (unsigned int index) const { return (&r)[index]; }
 	float& operator[] (unsigned int inder) { return (&r)[inder]; }

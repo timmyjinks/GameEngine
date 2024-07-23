@@ -1,4 +1,8 @@
 #include "Model.h"
+#include "Vector2.h"
+#include "Color.h"
+#include "Renderer.h"
+#include "Transform.h"
 
 void Model::Draw(Renderer& renderer, const Vector2& position, float angle, float scale)
 {
@@ -37,6 +41,5 @@ float Model::GetRadius() {
 			radius = r;
 		}
 	}
-	//std::cout << "end\n";
 	return radius;
 }
