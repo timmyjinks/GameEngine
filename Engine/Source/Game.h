@@ -21,13 +21,12 @@ public:
 	void AddPoints(int points) { m_score += points; }
 
 	int GetLives() const { return m_lives; }
-	int SetLives(int lives) { m_lives = lives; }
+	void SetLives(int lives) { m_lives -= lives; }
 
 protected:
 	int m_score{ 0 };
-	int m_lives = 0;
+	int m_lives{ 0 };
 
 	Engine* m_engine{ nullptr };
 	Scene* m_scene{ nullptr };
-
 };

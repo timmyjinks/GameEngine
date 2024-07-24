@@ -16,4 +16,8 @@ namespace GameData {
 		{ -2, -7 },
 		{ 5, 0 }
 	};
+
+	std::vector<Vector2> enemyShipPoints{
+
+	};
 }

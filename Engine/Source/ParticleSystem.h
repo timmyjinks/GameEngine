@@ -16,10 +16,10 @@ public:
 	void Draw(Renderer& renderer);
 
 	void AddParticle(const Particle::Data& data);
+	Particle* GetFreeParticle();
 
 	friend class Engine;
 
 private:
-	Particle* GetFreeParticle();
 	std::vector<Particle> m_particles;
 };

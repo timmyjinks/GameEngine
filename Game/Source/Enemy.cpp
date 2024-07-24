@@ -19,17 +19,17 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::OnCollision(Actor* actor)
 {
-	if (actor->GetTag() == "Player") {
+	if (actor->GetTag() == "Player" || actor->GetTag() == "PlayerBullet") {
 		m_destroyed = true;
 
-		/*Particle::Data data{
+		Particle::Data data{
 			m_transform.position,
-			Vector2{ 1,0}.Rotate(randomf(Math::TwoPi)) * 50,
+			Vector2{ 1,0 }.Rotate(randomf(Math::TwoPi)) * 50,
 			5,
-		};*/
+		};
 
 		for (int i = 0; i < 100; i++) {
-			//g_engine.GetParticleSystem().;
+			g_engine.GetParticleSystem().GetFreeParticle();
 		}
 	}
 }

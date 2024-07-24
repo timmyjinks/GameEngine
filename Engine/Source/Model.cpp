@@ -34,7 +34,6 @@ void Model::Draw(Renderer& renderer, const Transform& transform)
 
 float Model::GetRadius() {
 	float radius = 0;
-
 	for (const Vector2& point : m_points) {
 		float r = point.Length();
 		if (r > radius) {

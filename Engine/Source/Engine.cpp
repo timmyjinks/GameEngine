@@ -15,7 +15,7 @@ bool Engine::Initialize()
 
 	m_time = std::make_unique<Time>();
 
-	m_particleSystem = std::make_unique<ParticleSystem>();
+	m_particleSystem = std::make_unique<ParticleSystem>(10000);
 
 	return true;
 }

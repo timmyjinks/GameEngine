@@ -48,33 +48,34 @@ void FNAFGame::Update(float deltaTime)
 		m_state = eState::StartLevel;
 		break;
 	case eState::StartLevel:
-		m_scene->RemoveAll();
-		{
-			Transform transform{ {randomf(0,800), randomf(0, 600)}, 0, 5 };
-			Model* model = new Model{ GameData::shipPoints, Color{ 1, 1, 1 } };
-			auto player = std::make_unique<Player>(600, transform, model);
-			player->SetDamping(1.5f);
-			player->SetTag("Player");
-			m_scene->AddActor(std::move(player));
-		}
+	{
+		Transform transform{ { 400, 300 }, 0, 5 };
+		auto model = new Model{ GameData::shipPoints, Color{ 1, 1, 1 } };
+		auto player = std::make_unique<Player>(600, transform, model);
+		player->SetLifespan(-5);
+		player->SetDamping(1.5f);
+		player->SetTag("Player");
+		m_scene->AddActor(std::move(player));
+	}
 
-		m_spawnTime = 3;
-		m_spawnTimer = m_spawnTime;
-		m_state = eState::Game;
-		m_lives = 3;
-		break;
+	m_spawnTime = 3;
+	m_spawnTimer = m_spawnTime;
+	m_state = eState::Game;
+	break;
 	case eState::Game:
 		m_spawnTimer -= deltaTime;
 		if (m_spawnTimer <= 0) {
 			m_spawnTimer = m_spawnTime;
 			auto enemyModel = new Model{ GameData::shipPoints, Color{ 1, 0, 1 } };
 			auto enemy = std::make_unique<Enemy>(600, Transform{ {random(g_engine.GetRenderer().GetWidth()), random(g_engine.GetRenderer().GetHeight())}, 0, 2 }, enemyModel);
+			enemy->SetLifespan(-5);
 			enemy->SetDamping(1.5f);
 			enemy->SetTag("Enemy");
 			m_scene->AddActor(std::move(enemy));
 
 			auto pickupModel = new Model{ GameData::shipPoints, Color{ 1, 1, 1 } };
 			auto pickup = std::make_unique<Pickup>(Transform{ { random(g_engine.GetRenderer().GetWidth()), random(g_engine.GetRenderer().GetHeight())}, 0, 2 }, pickupModel);
+			pickup->SetLifespan(-5);
 			pickup->SetTag("Pickup");
 			m_scene->AddActor(std::move(pickup));
 
@@ -88,6 +89,7 @@ void FNAFGame::Update(float deltaTime)
 		}
 		break;
 	case eState::GameOver:
+		m_scene->RemoveAll();
 		m_stateTimer -= deltaTime;
 		if (m_stateTimer <= 0)
 		{
