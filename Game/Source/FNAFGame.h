@@ -35,6 +35,5 @@ private:
 	Font* m_fontLarge{ nullptr };
 	Text* m_textScore{ nullptr };
 	Text* m_textLives{ nullptr };
-
 	Text* m_textTitle{ nullptr };
 };

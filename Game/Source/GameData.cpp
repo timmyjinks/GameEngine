@@ -17,7 +17,43 @@ namespace GameData {
 		{ 5, 0 }
 	};
 
-	std::vector<Vector2> enemyShipPoints{
-
+	std::vector<Vector2> bulletPoints{
+		{ 5, 0 },
+		{ -5, -5 },
+		{ -5, 5 },
+		{ 5, 0 }
 	};
+
+	std::vector<Vector2> enemyPoints{
+		{ 5, -5 },
+		{ -5, -5 },
+		{ -5, 5 },
+		{ 5, 5 },
+		{ 5, -5 }
+	};
+
+	std::vector<Vector2> pickupPoints{
+		{ 5, -5 },
+		{ -5, -5 },
+		{ -5, 5 },
+		{ 5, 5 },
+		{ 5, -5 }
+	};
+
+	std::vector<Vector2> bossPoints{
+		{ 5, -5 },
+		{ -5, -5 },
+		{ -5, 5 },
+		{ 5, 5 },
+		{ 5, 0 }
+	};
+
+	std::vector<Vector2> scorePoints{
+		{ 5, -5 },
+		{ -5, -5 },
+		{ -5, 5 },
+		{ 5, 5 },
+		{ 5, 0 }
+	};
+
 }

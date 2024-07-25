@@ -1,5 +1,6 @@
-./bin/
-./obj/
-./.vs/
-./Engine/x64/
-./Game/x64/
+bin/
+obj/
+.vs/
+x64/
+Engine/x64/
+Game/x64/

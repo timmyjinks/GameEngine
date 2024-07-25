@@ -8,11 +8,11 @@
 #include "Font.h"
 #include "Text.h"
 
-//#include <memory>
-
 bool FNAFGame::Initialize()
 {
 	m_scene = new Scene(this);
+
+	g_engine.GetAudio().AddSound("bass.wav");
 
 	m_font = new Font();
 	m_font->Load("arcadeclassic.ttf", 20);
@@ -37,6 +37,7 @@ void FNAFGame::Update(float deltaTime)
 	switch (m_state)
 	{
 	case eState::Title:
+		g_engine.GetAudio().PlaySound("bass.wav");
 		if (m_engine->GetInput().GetKeyDown(SDL_SCANCODE_SPACE))
 		{
 			m_state = eState::StartGame;
@@ -66,26 +67,31 @@ void FNAFGame::Update(float deltaTime)
 		m_spawnTimer -= deltaTime;
 		if (m_spawnTimer <= 0) {
 			m_spawnTimer = m_spawnTime;
-			auto enemyModel = new Model{ GameData::shipPoints, Color{ 1, 0, 1 } };
-			auto enemy = std::make_unique<Enemy>(600, Transform{ {random(g_engine.GetRenderer().GetWidth()), random(g_engine.GetRenderer().GetHeight())}, 0, 2 }, enemyModel);
+			auto enemyModel = new Model{ GameData::enemyPoints, Color{ 1, 0, 0 } };
+			auto enemy = std::make_unique<Enemy>(60, Transform{ {random(g_engine.GetRenderer().GetWidth()), random(g_engine.GetRenderer().GetHeight())}, 0, 2 }, enemyModel);
 			enemy->SetLifespan(-5);
 			enemy->SetDamping(1.5f);
 			enemy->SetTag("Enemy");
 			m_scene->AddActor(std::move(enemy));
 
-			auto pickupModel = new Model{ GameData::shipPoints, Color{ 1, 1, 1 } };
+
+			auto pickupModel = new Model{ GameData::pickupPoints, Color{ 1, 1, 0 } };
 			auto pickup = std::make_unique<Pickup>(Transform{ { random(g_engine.GetRenderer().GetWidth()), random(g_engine.GetRenderer().GetHeight())}, 0, 2 }, pickupModel);
 			pickup->SetLifespan(-5);
 			pickup->SetTag("Pickup");
 			m_scene->AddActor(std::move(pickup));
-
 		}
 		break;
 	case eState::PlayerDead:
 		m_stateTimer -= deltaTime;
 		if (m_stateTimer <= 0)
 		{
-			m_state = eState::StartLevel;
+			if (m_lives == 0) {
+				m_state = eState::GameOver;
+			}
+			else {
+				m_state = eState::StartLevel;
+			}
 		}
 		break;
 	case eState::GameOver:
@@ -108,7 +114,6 @@ void FNAFGame::Draw(Renderer& renderer)
 	switch (m_state)
 	{
 	case eState::Title:
-
 		m_textTitle->Create(renderer, "1", Color{ 1,0,1,1 });
 		m_textTitle->Draw(renderer, 250, 250);
 		break;
