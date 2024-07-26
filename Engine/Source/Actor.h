@@ -27,7 +27,7 @@ public:
 	const std::string& GetTag() { return m_tag; }
 
 	virtual void OnCollision(Actor* actor) = 0;
-	float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : 0; }
+	float GetRadius() { return (m_model) ? m_model->GetRadius() * (m_transform.scale - 0.8) : 0; }
 
 	friend class Scene;
 

@@ -25,11 +25,10 @@ namespace GameData {
 	};
 
 	std::vector<Vector2> enemyPoints{
-		{ 5, -5 },
+		{ 5, 0 },
 		{ -5, -5 },
 		{ -5, 5 },
-		{ 5, 5 },
-		{ 5, -5 }
+		{ 5, 0 }
 	};
 
 	std::vector<Vector2> pickupPoints{

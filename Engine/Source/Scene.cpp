@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <chrono>
-#include <iostream>
 
 void Scene::Update(float deltaTime)
 {
@@ -14,16 +13,13 @@ void Scene::Update(float deltaTime)
 	}
 
 	// destroy	
-	std::erase_if(m_actors, [](auto& actor) { return actor->m_destroyed;});
-	std::cout << m_actors.size() << std::endl;
 	// collision
 	for (auto& actor1 : m_actors) {
 		for (auto& actor2 : m_actors) {
 			if (actor1 == actor2) continue;
-
 			Vector2 direction = actor1->GetTransform().position - actor2->GetTransform().position;
 			float disitance = direction.Length();
-			float radius = actor1->m_model->GetRadius() + actor2->m_model->GetRadius();
+			float radius = actor1->GetRadius() + actor2->GetRadius();
 
 			if (disitance <= radius) {
 				actor1->OnCollision(actor2.get());
@@ -31,6 +27,7 @@ void Scene::Update(float deltaTime)
 			}
 		}
 	}
+	std::erase_if(m_actors, [](auto& actor) { return actor->m_destroyed;});
 }
 
 void Scene::Draw(Renderer& renderer)
@@ -44,13 +41,6 @@ void Scene::AddActor(std::unique_ptr<Actor> actor)
 {
 	actor->m_scene = this;
 	m_actors.push_back(std::move(actor));
-
-	int i = 0;
-	for (auto& actor : m_actors) {
-		//std::cout << i << std::endl;
-		i++;
-		//std::cout << actor.get()->GetTransform().position.x << std::endl;
-	}
 }
 
 void Scene::RemoveAll()

@@ -20,16 +20,17 @@ void Enemy::Update(float deltaTime)
 void Enemy::OnCollision(Actor* actor)
 {
 	if (actor->GetTag() == "Player" || actor->GetTag() == "PlayerBullet") {
+		g_engine.GetAudio().PlaySound("explosion.mp3");
 		m_destroyed = true;
 
-		Particle::Data data{
-			m_transform.position,
-			Vector2{ 1,0 }.Rotate(randomf(Math::TwoPi)) * 50,
-			5,
-		};
+		/*for (int i = 0; i < 25; i++) {
+			Particle::Data data{
+				m_transform.position,
+				Vector2{ randomOnUnitCircle() * randomf(-50, 50)},
+				1.5f,
+			};
 
-		for (int i = 0; i < 100; i++) {
-			g_engine.GetParticleSystem().GetFreeParticle();
-		}
+			g_engine.GetParticleSystem().GetFreeParticle()->Initialize(data);*/
+			//}
 	}
 }

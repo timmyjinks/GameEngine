@@ -7,13 +7,10 @@ struct Particle {
 		Vector2 position{ 0,0 };
 		Vector2 velocity{ 0,0 };
 		float lifespan = 0;
-		uint8_t r{ 255 };
-		uint8_t g{ 255 };
-		uint8_t b{ 255 };
-		uint8_t a{ 255 };
+		uint8_t r, g, b, a = 255;
 	};
 
-	Data data;
+	Data m_data;
 	Vector2 position{ 0,0 };
 	Vector2 velocity{ 0,0 };
 	float lifespan = 0;
@@ -40,7 +37,7 @@ struct Particle {
 		r{ r }, g{ g }, b{ b }, a{ a }
 	{}
 
-	void Initialize();
+	void Initialize(const Data& data);
 	void Update(float deltaTime);
 	void Draw(Renderer& renderer);
 };

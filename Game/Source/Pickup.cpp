@@ -3,9 +3,7 @@
 
 void Pickup::OnCollision(Actor* actor)
 {
-	if (actor->GetTag() == "Player")
-	{
-		dynamic_cast<Player*>(actor)->SetFireModifier(0.1);
+	if (actor->GetTag() == "Player") {
 		m_destroyed = true;
 	}
 }

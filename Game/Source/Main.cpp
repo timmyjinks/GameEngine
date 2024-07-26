@@ -16,6 +16,8 @@ int main(int argc, char* argv[])
 	FNAFGame* game = new FNAFGame(&g_engine);
 	game->Initialize();
 
+	std::vector<Particle> particles;
+
 	while (!g_engine.IsQuit())
 	{
 		g_engine.Update();
@@ -85,6 +87,20 @@ int main(int argc, char* argv[])
 			if (particle.position.x < 0) particle.position.x = 800;
 		}
 
+		for (float angle = 0; angle < 360; angle += 360 / 30) {
+			float x = Math::Cos(Math::DegToRad(angle + offset)) * Math::Cos(offset * 0.01f) * radius;
+			float y = Math::Sin(Math::DegToRad(angle + offset)) * Math::Cos(offset * 0.01f) * radius;
+
+			g_engine.GetRenderer().DrawRect(400 + x, 300 + y, 4.0f, 4.0f);
+
+			if (g_engine.GetInput().GetMouseButtonDown(0) && !g_engine.GetInput().GetPreviousMouseButtonDown(0)) {
+					for (int i = 0; i < 1000; i++) {
+						particles.push_back(Particle{ mousePosition, randomOnUnitCircle() * 100 ,randomf(1,5), (uint8_t)random(256), (uint8_t)random(256), (uint8_t)random(256) });
+					}
+					break;
+				}
+		}
+
 		// DRAW
 		// clear screen
 		g_engine.GetRenderer().SetColor(0, 0, 0, 0);
@@ -93,19 +109,6 @@ int main(int argc, char* argv[])
 		float radius = 180;
 		offset += (90 * g_engine.GetTime().GetDeltaTime());
 		g_engine.GetRenderer().SetColor(0, 255, 255, 0);
-		for (float angle = 0; angle < 360; angle += 360 / 30) {
-			float x = Math::Cos(Math::DegToRad(angle + offset)) * Math::Cos(offset * 0.01f) * radius;
-			float y = Math::Sin(Math::DegToRad(angle + offset)) * Math::Cos(offset * 0.01f) * radius;
-
-			g_engine.GetRenderer().DrawRect(400 + x, 300 + y, 4.0f, 4.0f);
-
-			/*	if (g_engine.GetInput().GetMouseButtonDown(0) && !g_engine.GetInput().GetPreviousMouseButtonDown(0)) {
-					for (int i = 0; i < 1000; i++) {
-						particles.push_back(Particle{ mousePosition, randomOnUnitCircle() * 100 ,randomf(1,5), (uint8_t)random(256), (uint8_t)random(256), (uint8_t)random(256) });
-					}
-					break;
-				}
-		}
 
 		// particles
 		for (Particle particle : particles) {

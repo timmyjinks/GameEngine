@@ -14,9 +14,8 @@ void ParticleSystem::Draw(Renderer& renderer) {
 
 void ParticleSystem::AddParticle(const Particle::Data& data) {
 	Particle* particle = GetFreeParticle();
-	particle = new Particle{ data.position, data.velocity, data.lifespan };
 	if (particle) {
-		m_particles.push_back(*particle);
+		particle->Initialize(data);
 	}
 }
 
